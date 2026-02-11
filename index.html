@@ -2,108 +2,164 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galentine 💖</title>
+<title>Be My Galentine 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins&display=swap" rel="stylesheet">
+
 <style>
 body {
-  margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:#d46d94;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
-  color:white;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #fcd0e5, #f9b6d2);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
 }
 
 .container {
-  width:90%;
-  max-width:500px;
-  background:rgba(0,0,0,0.3);
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  position:relative;
-  min-height:300px;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    z-index: 2;
 }
-
-h1, h2 {
-  margin-bottom:20px;
-}
-
-h1 { font-size:22px; }
-h2 { font-size:20px; }
 
 button {
-  padding:12px 20px;
-  margin:8px;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:15px;
-  transition:0.2s;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:hover {transform: scale(1.05);}
-
-.yes {
-  background:#ff4da6;
-  color:white;
+.yes-btn {
+    background-color: #ff6fa5;
+    color: white;
 }
 
-.no {
-  background:white;
-  color:#8b004f;
-  position:absolute;
+.no-btn {
+    background-color: #ccc;
+    position: relative;
 }
 
-.openNoteBtn {
-  background:#ff4da6;
-  color:white;
-  margin-top:15px;
+.yes-btn:hover {
+    transform: scale(1.1);
 }
 
-.noteBox {
-  display:none;
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:15px;
-  max-height:400px;
-  overflow-y:auto;
-  text-align:left;
-  white-space:pre-wrap;
-  font-size:14px;
+.no-btn:hover {
+    transform: scale(0.95);
 }
 
+.hidden {
+    display: none;
+}
+
+.note-btn {
+    background-color: #f4e1ec;
+    color: black;
+    margin-top: 20px;
+}
+
+.note-box {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff0f6;
+    border-radius: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating Hearts */
 .heart {
-  position:absolute;
-  font-size:22px;
-  animation:float 6s linear infinite;
-  pointer-events:none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    transform: rotate(45deg);
+    left: 50%;
+    top: 50%;
+    animation: float 7s linear infinite;
+    z-index: 1;
 }
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: 10px; top: 0; }
 
 @keyframes float {
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+    0% { transform: translate(0,0) rotate(45deg); opacity:1;}
+    100% { transform: translate(-100px,-700px) rotate(45deg); opacity:0;}
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6fa5;
+    animation: confettiFall 3s linear infinite;
+    z-index: 3;
+    border-radius: 50%;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity:1;}
+    100% { transform: translateY(800px) rotate(360deg); opacity:0;}
 }
 </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
-  <h1 id="question">Will you be my Galentine? 💖</h1>
-  <button class="yes" id="yesBtn">Yes 💘</button>
-  <button class="no" id="noBtn">No 😶‍🌫️</button>
+<!-- Question Box -->
+<div class="container" id="questionBox">
+    <h1>Will you be my Galentine, Jagiyaa? 💕</h1>
+    <button class="yes-btn" onclick="sayYes()">Yes 💖</button>
+    <button class="no-btn" onclick="noClick()">No 🙈</button>
+    <p id="noText" style="margin-top:20px; font-weight:bold; font-size:16px;"></p>
 </div>
 
-<div class="container" id="valentineMsg" style="display:none;">
-  <h2 id="officialMsg">Officially my Galentine 💖</h2>
-  <button class="openNoteBtn" id="openNoteBtn">Click to Play Music & Open Note ✨</button>
-</div>
-
-<div class="noteBox" id="noteBox">
+<!-- Result Box -->
+<div class="container hidden" id="resultBox">
+    <h1>Officially My Galentine 💖</h1>
+    <h2>I love youuu jaaanii 😘🌺</h2>
+    <button class="note-btn" onclick="showNote()">Open Your Note 💌</button>
+    <div id="noteBox" class="note-box">
+        <p>
 Hi jagiya I'm soo happy to have someone like you to wish galentine💐...  
 Literally I really enjoyed these little things. I mean writing notes and making links..... I mean I never thought about this stuff like this.... Youu knoww me I'm more like princess treatment lenyy Wala person👉🏻👈🏻 rather then giving or doing these type of thingg like I'm really a girly girlllll   
 Butttt when itt comesse to youuu 🤧❤️  
@@ -113,77 +169,92 @@ But somehow ideas naturally pop up in my mind when I think off youuuu🥹💞
 YOUUUU AREEE REALLLYY SOMETHING🤌🏻😭😭💘💘  
 Something..... magical 💫  
 Oooo myyyy whiskeyyyyyy😭😚 I really love our friendship too much🥰..... I mean this platonic love 🖤I was not even familiar with this term before....but after youu and with youuu there were so many times like I discover lovee and learn a lott of thinggsss 💓  
-Youu are like something⚡ I mean how to put it in words you know something I want to wrap and keep inside my pocket🤌🏻😭🫠😘....like youuu aree too precious to be kept like this....how should I put in to words i mean when it comes to youu I become selfish like I don't want the world to found the treasure that I found....🤧🖤   
+Youu are like something⚡ I mean how to put it in words you know something I want to wrap and keep inside my pocket🤌🏻😭🫠😘....like youuu aree too precious to be kept like this....🤧🖤   
 Youu have a very beautiful soul and I'll remind you over and over again 🌹  
 And your eyess are likee stars✨😍 they sparkle a lottt ..... Ahhhh I'm so lucky to experience this and explore the beauty of yoursss😌💜  
-And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss... The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
+And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh h💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss... The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
 ✨AND THEN I MET YOUU ✨🖤😘  
 And I have experience everything with youuu🤧❤️❤️ ....I had many friends before but youu are someone who resides inside my heart💞🧬 ..... Like If I say my heart is a garden then I'll say youu are the most beautiful flower and the precious onee 🌷✨  
 You are the best friend ❤️  
-Best love❣️ and above of all best soulmate💜 I found in this journey of life 🫂❤️🧬...... When youu aree around me I don't care if someone is seeing me doing silly things .. ..if I'm uttering nonsense... Making faces or crying....idk butt  around you I'm just like a catt ❣️🌷like so much comfortable.... You make   my brain like at rest 🧡with you it's likeee a soft glowy spring season🌺✨.... Like I can be loud around youu and can be quite too.... Your quietness is like a warm hand to my chaos 🖤🤎.... I like when you act likee silly and being yourself and acting weird😘... Youu are the only weirdoo😘😌 that I likee thiss muchh and lovee thiss much 😭.... Like the sync of our brains tooo 😌.... I like our dirty jokess 😏😌 too that add laughter to Convos 🥰.... Be yourself.... Do whatever you want you have my full support 😌❣️.... I'm always rooting for youuu 🌷 stayyy shining jagiya 💞✨ youu have me as a backup so don't ever think you are aloneee🤧  
+Best love❣️ and above of all best soulmate💜 I found in this journey of life 🫂❤️🧬...... When youu aree around me I don't care if someone is seeing me doing silly things .. ..if I'm uttering nonsense... Making faces or crying....idk butt  around you I'm just like a catt ❣️🌷like so much comfortable.... You make   my brain like at rest 🧡with you it's likeee a soft glowy spring season🌺✨.... Like I can be loud around youu and can be quite too.... Your quietness is like a warm hand to my chaos 🖤🤎.... I like when you act likee silly and being yourself and acting weird😘... Youu are the only weirdoo😘😌 that I likee thiss muchh and lovee thiss much 😭.... Like the sync of our brains tooo 😌.... I like our dirty jokess 😏😌 tooo that add laughter to Convos 🥰.... Be yourself.... Do whatever you want you have my full support 😌❣️.... I'm always rooting for youuu 🌷 stayyy shining jagiya 💞✨ youu have me as a backup so don't ever think you are aloneee🤧  
 Love you twin ❣️✨
+        </p>
+    </div>
 </div>
 
-<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_3c86e0d8a4.mp3?filename=romantic-soft-piano-ambient-10937.mp3" type="audio/mpeg"></audio>
+<!-- Floating Hearts Container -->
+<div id="heartsContainer"></div>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const container = document.getElementById("mainContainer");
-const valentineMsg = document.getElementById("valentineMsg");
-const openNoteBtn = document.getElementById("openNoteBtn");
-const noteBox = document.getElementById("noteBox");
-const music = document.getElementById("music");
-
-// No button text cycling
-const noTexts = [
-"No😶‍🌫️","are you sure 💘","really 🫣","try again 🥱","no escape😏","nice try 😚",
-"you can't escape love😉😘","still no🤧","really😞","you are testing my patience now🥴","nope not happening🙂‍↔️"
+// NO button lines
+let noLines = [
+    "No😶‍🌫️",
+    "Are you sure 💘",
+    "Really 🫣",
+    "Try again 🥱",
+    "No escape😏",
+    "Nice try 😚",
+    "You can't escape love😉😘",
+    "Still no🤧",
+    "Really😞",
+    "You are testing my patience now🥴",
+    "Nope not happening🙂↔️"
 ];
 let noIndex = 0;
-noBtn.style.left="50px";
-noBtn.style.top="150px";
 
-// Move no button inside container & cycle text
-noBtn.onclick = () => {
-  if(noIndex<noTexts.length){
-    noBtn.innerText=noTexts[noIndex];
-    noIndex++;
-  }
-  const maxX = container.clientWidth - noBtn.offsetWidth -10;
-  const maxY = container.clientHeight - noBtn.offsetHeight -10;
-  noBtn.style.left = Math.random()*maxX+"px";
-  noBtn.style.top = Math.random()*maxY+"px";
+// NO button click function
+function noClick() {
+    let noBtn = document.querySelector(".no-btn");
+    if (noIndex < noLines.length) {
+        document.getElementById("noText").innerText = noLines[noIndex];
+        noIndex++;
+    }
+    // Move button randomly
+    noBtn.style.position = "absolute";
+    noBtn.style.top = Math.random() * (window.innerHeight - 60) + "px";
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
 }
 
-// Yes button → show Officially my Galentine 💖
-yesBtn.onclick = () => {
-  container.style.display="none";
-  valentineMsg.style.display="block";
+// YES click
+function sayYes() {
+    document.getElementById("questionBox").classList.add("hidden");
+    document.getElementById("resultBox").classList.remove("hidden");
+    startConfetti();
 }
 
-// Open Note → show note & play music (guaranteed)
-openNoteBtn.onclick = () => {
-  noteBox.style.display="block";
-  valentineMsg.style.display="none";
-  
-  // play music safely (user clicked button, so allowed)
-  music.currentTime = 0;
-  music.play();
-
-  // stop floating hearts
-  document.querySelectorAll(".heart").forEach(h=>h.remove());
+// Show note
+function showNote() {
+    let noteBox = document.getElementById("noteBox");
+    noteBox.style.display = "block";
+    // Play gentle music
+    let audio = new Audio('https://www.bensound.com/bensound-music/bensound-slowmotion.mp3');
+    audio.volume = 0.2;
+    audio.play();
 }
 
-// floating hearts
-for(let i=0;i<20;i++){
-  let heart = document.createElement("div");
-  heart.className="heart";
-  heart.innerText="💖";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(heart);
+// Floating hearts
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 7000);
+}
+setInterval(createHeart, 300);
+
+// Confetti
+function startConfetti() {
+    for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+        document.body.appendChild(confetti);
+        setTimeout(() => { confetti.remove(); }, 3000);
+    }
 }
 </script>
+
 </body>
 </html>
