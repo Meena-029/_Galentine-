@@ -8,7 +8,7 @@
 body {
   margin:0;
   font-family:'Segoe UI', sans-serif;
-  background:#d46d94; /* dark pink */
+  background:#d46d94;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -100,7 +100,7 @@ button:hover {transform: scale(1.05);}
 
 <div class="container" id="valentineMsg" style="display:none;">
   <h2 id="officialMsg">Officially my Galentine 💖</h2>
-  <button class="openNoteBtn" id="openNoteBtn">Play Music & Open Note ✨</button>
+  <button class="openNoteBtn" id="openNoteBtn">Click to Play Music & Open Note ✨</button>
 </div>
 
 <div class="noteBox" id="noteBox">
@@ -116,7 +116,7 @@ Oooo myyyy whiskeyyyyyy😭😚 I really love our friendship too much🥰..... I
 Youu are like something⚡ I mean how to put it in words you know something I want to wrap and keep inside my pocket🤌🏻😭🫠😘....like youuu aree too precious to be kept like this....how should I put in to words i mean when it comes to youu I become selfish like I don't want the world to found the treasure that I found....🤧🖤   
 Youu have a very beautiful soul and I'll remind you over and over again 🌹  
 And your eyess are likee stars✨😍 they sparkle a lottt ..... Ahhhh I'm so lucky to experience this and explore the beauty of yoursss😌💜  
-And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss... The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
+And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss...The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
 ✨AND THEN I MET YOUU ✨🖤😘  
 And I have experience everything with youuu🤧❤️❤️ ....I had many friends before but youu are someone who resides inside my heart💞🧬 ..... Like If I say my heart is a garden then I'll say youu are the most beautiful flower and the precious onee 🌷✨  
 You are the best friend ❤️  
@@ -162,22 +162,20 @@ yesBtn.onclick = () => {
   valentineMsg.style.display="block";
 }
 
-// Open Note → show note & play soft melody (requires user interaction)
+// Open Note → show note & play music (guaranteed)
 openNoteBtn.onclick = () => {
   valentineMsg.style.display="none";
   noteBox.style.display="block";
 
-  // play music safely (browser requires direct click)
+  // play music safely
   music.currentTime = 0;
-  music.play().catch(err => {
-    alert("Click anywhere on the page to enable music 🎵");
-  });
+  music.play();
 
   // Stop floating hearts
   document.querySelectorAll(".heart").forEach(h=>h.remove());
 }
 
-// floating hearts in background
+// floating hearts
 for(let i=0;i<20;i++){
   let heart = document.createElement("div");
   heart.className="heart";
