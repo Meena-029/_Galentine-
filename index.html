@@ -99,7 +99,7 @@ button:hover {transform: scale(1.05);}
 </div>
 
 <div class="container" id="valentineMsg" style="display:none;">
-  <h2>Officially my Galentine 💖</h2>
+  <h2 id="officialMsg">Officially my Galentine 💖</h2>
   <button class="openNoteBtn" id="openNoteBtn">Open Note ✨</button>
 </div>
 
@@ -144,6 +144,7 @@ let noIndex = 0;
 noBtn.style.left="50px";
 noBtn.style.top="150px";
 
+// No button movement & text cycling
 noBtn.onclick = function(){
   if(noIndex < noTexts.length){
     noBtn.innerText = noTexts[noIndex];
@@ -155,19 +156,28 @@ noBtn.onclick = function(){
   noBtn.style.top = Math.random()*maxY+"px";
 }
 
+// Yes button → show Officially my Galentine
 yesBtn.onclick = () => {
   container.style.display="none";
   valentineMsg.style.display="block";
 }
 
+// Open Note button → show note & play music
 openNoteBtn.onclick = () => {
   valentineMsg.style.display="none";
   noteBox.style.display="block";
-  music.play();
+
+  // play music safely
+  music.play().then(()=>console.log("Music playing 🎵")).catch(err=>{
+    console.log("Music blocked, user interaction needed", err);
+    alert("Click anywhere to enable music 🎶");
+  });
+
+  // stop hearts
   document.querySelectorAll(".heart").forEach(h=>h.remove());
 }
 
-// floating hearts
+// floating hearts in background
 for(let i=0;i<20;i++){
   let heart=document.createElement("div");
   heart.className="heart";
@@ -178,4 +188,4 @@ for(let i=0;i<20;i++){
 }
 </script>
 </body>
-  </html>
+</html>
