@@ -116,7 +116,7 @@ Oooo myyyy whiskeyyyyyy😭😚 I really love our friendship too much🥰..... I
 Youu are like something⚡ I mean how to put it in words you know something I want to wrap and keep inside my pocket🤌🏻😭🫠😘....like youuu aree too precious to be kept like this....how should I put in to words i mean when it comes to youu I become selfish like I don't want the world to found the treasure that I found....🤧🖤   
 Youu have a very beautiful soul and I'll remind you over and over again 🌹  
 And your eyess are likee stars✨😍 they sparkle a lottt ..... Ahhhh I'm so lucky to experience this and explore the beauty of yoursss😌💜  
-And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss... The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
+And if I talk about our friendship I can gladly say tha you know when I was in college two of my friends had a very good bond mean I really like their bond at that time like how they share such a cute relationship and still they are best friends even after going to different institutes..... Ar mujhy in dono ko dekh k bht axhaa lgta ths k friendship bhi itni beautiful ho skti h.. isi tran jb m K-dramas dekhti hun to mujhy bht axhaa lgta h jis tran wo friendship ko portray krtyh💝 ....like dunya hmesha lovers k lovve pr zyada krti h....but only some talk about the real support in form of friends like the late night talks.... The dirty jokess....the laughs...The corridor walksss...The wait outside the washroom... Using each other's things... looking at each other at moments, sharing secrets, memories, tears and happiness, Pampering each other and caring for each other I mean it is so beautifullll 💜💙  
 ✨AND THEN I MET YOUU ✨🖤😘  
 And I have experience everything with youuu🤧❤️❤️ ....I had many friends before but youu are someone who resides inside my heart💞🧬 ..... Like If I say my heart is a garden then I'll say youu are the most beautiful flower and the precious onee 🌷✨  
 You are the best friend ❤️  
@@ -135,19 +135,19 @@ const openNoteBtn = document.getElementById("openNoteBtn");
 const noteBox = document.getElementById("noteBox");
 const music = document.getElementById("music");
 
+// No button text cycling
 const noTexts = [
 "No😶‍🌫️","are you sure 💘","really 🫣","try again 🥱","no escape😏","nice try 😚",
 "you can't escape love😉😘","still no🤧","really😞","you are testing my patience now🥴","nope not happening🙂‍↔️"
 ];
-
 let noIndex = 0;
 noBtn.style.left="50px";
 noBtn.style.top="150px";
 
-// No button movement & text cycling
-noBtn.onclick = function(){
-  if(noIndex < noTexts.length){
-    noBtn.innerText = noTexts[noIndex];
+// Move no button inside container & cycle text
+noBtn.onclick = () => {
+  if(noIndex<noTexts.length){
+    noBtn.innerText=noTexts[noIndex];
     noIndex++;
   }
   const maxX = container.clientWidth - noBtn.offsetWidth -10;
@@ -156,30 +156,29 @@ noBtn.onclick = function(){
   noBtn.style.top = Math.random()*maxY+"px";
 }
 
-// Yes button → show Officially my Galentine
+// Yes button → show Officially my Galentine 💖
 yesBtn.onclick = () => {
   container.style.display="none";
   valentineMsg.style.display="block";
 }
 
-// Open Note button → show note & play music
+// Open Note → show note & play soft melody
 openNoteBtn.onclick = () => {
   valentineMsg.style.display="none";
   noteBox.style.display="block";
 
-  // play music safely
-  music.play().then(()=>console.log("Music playing 🎵")).catch(err=>{
-    console.log("Music blocked, user interaction needed", err);
-    alert("Click anywhere to enable music 🎶");
+  music.currentTime = 0;
+  music.play().catch(err => {
+    console.log("Music blocked, click anywhere to enable", err);
   });
 
-  // stop hearts
+  // Stop floating hearts
   document.querySelectorAll(".heart").forEach(h=>h.remove());
 }
 
 // floating hearts in background
 for(let i=0;i<20;i++){
-  let heart=document.createElement("div");
+  let heart = document.createElement("div");
   heart.className="heart";
   heart.innerText="💖";
   heart.style.left=Math.random()*100+"vw";
